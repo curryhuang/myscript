@@ -1,0 +1,113 @@
+#!/usr/local/bin/bash
+
+usage()
+{
+  echo "usage: `basename $0` [-h {host number}]"
+  exit 0
+}
+
+host=274
+while getopts ":h:" options;
+do
+  case $options in
+  h) host=$OPTARG;;
+ \?) usage;;
+  esac
+done
+
+if [[ ! $host =~ [0-9]+ ]]; then
+  echo "Invalid host ID"
+	exit 1
+fi
+
+echo "Sync with vm$host"
+
+for var in "$@"
+do
+
+if [[ "$var" = "grayskull" || "$var" = "all" ]]; then
+echo syncing grayskull
+rsync -av -e ssh --delete --exclude-from=/Users/curry/bin/grayskull.list ~/depot/penghuan_curry-macbook-pro/genesis_web/ httpd@vm$host.dev.ut1.omniture.com:~/depot/genesis_web/grayskull 
+fi
+
+if [[ "$var" = "falkland" || "$var" = "all" ]]; then
+echo syncing falkland
+rsync -av -e ssh --delete --exclude-from=/Users/curry/bin/grayskull.list ~/depot/penghuan_curry-macbook-pro/genesis_web/ httpd@vm$host.dev.ut1.omniture.com:~/depot/genesis_web/falkland
+fi
+
+if [[ "$var" = "edinburgh" || "$var" = "all" ]]; then
+echo syncing edinburgh 
+rsync -av -e ssh --delete --exclude-from=/Users/curry/bin/grayskull.list ~/depot/penghuan_curry-macbook-pro/genesis_web/ httpd@vm$host.dev.ut1.omniture.com:~/depot/genesis_web/edinburgh
+fi
+
+if [[ "$var" = "phplib" || "$var" = "all" ]]; then
+echo syncing phplib
+rsync -av -e ssh --delete --exclude-from=/Users/curry/bin/list ~/depot/penghuan_curry-macbook-pro/phplib/trunk/ httpd@vm$host.dev.ut1.omniture.com:~/depot/phplib/trunk 
+fi
+
+if [[ "$var" = "developer_connection" || "$var" = "all" ]]; then
+echo syncing developer_connection
+rsync -av -e ssh --delete --exclude-from=/Users/curry/bin/developer_connection.list ~/depot/penghuan_curry-macbook-pro/Developer-Connection/ httpd@vm$host.dev.ut1.omniture.com:~/depot/developer_connection 
+fi
+
+if [[ "$var" = "dev_center" || "$var" = "all" ]]; then
+echo syncing dev_center
+rsync -av -e ssh --delete --exclude-from=/Users/curry/bin/developer_connection.list ~/depot/penghuan_curry-macbook-pro/Developer-Connection/plugins/odcDevCenterPlugin httpd@vm$host.dev.ut1.omniture.com:~/depot/developer_connection/plugins 
+fi
+
+if [[ "$var" = "application_platform" || "$var" = "all" ]]; then
+echo syncing application_platform
+rsync -av -e ssh --delete --exclude-from=/Users/curry/bin/list ~/depot/penghuan_curry-macbook-pro/application_platform/trunk/ httpd@vm$host.dev.ut1.omniture.com:~/depot/application_platform/trunk 
+fi
+
+if [[ "$var" = "application_platform_profile_201307" || "$var" = "all" ]]; then
+echo syncing application_platform_profile_201307
+rsync -av -e ssh --delete --exclude-from=/Users/curry/bin/list ~/depot/penghuan_curry-macbook-pro/application_platform/branches/profile_201307/ httpd@vm$host.dev.ut1.omniture.com:~/depot/application_platform/profile_201307 
+fi
+
+if [[ "$var" = "frag_api" || "$var" = "all" ]]; then
+echo syncing frag_api
+rsync -av -e ssh --delete --exclude-from=/Users/curry/bin/list ~/depot/penghuan_curry-macbook-pro/frag_api/branches/axel_dev/ httpd@vm$host.dev.ut1.omniture.com:~/depot/frag_api/axel_dev 
+fi
+
+if [[ "$var" = "drteeth" || "$var" = "all" ]]; then
+echo syncing drteeth
+rsync -av -e ssh --delete --exclude-from=/Users/curry/bin/list ~/depot/penghuan_curry-macbook-pro/drteeth/ httpd@vm$host.dev.ut1.omniture.com:~/depot/drteeth 
+fi
+
+if [[ "$var" = "sitecatalyst" || "$var" = "all" ]]; then
+echo syncing sitecatalyst
+rsync -av -e ssh --delete --exclude-from=/Users/curry/bin/list ~/depot/penghuan_curry-macbook-pro/sitecatalyst/trunk/ httpd@vm$host.dev.ut1.omniture.com:~/depot/sitecatalyst/trunk 
+fi
+
+if [[ "$var" = "static" || "$var" = "all" ]]; then
+echo syncing static
+rsync -av -e ssh --delete --exclude-from=/Users/curry/bin/list ~/depot/penghuan_curry-macbook-pro/static/trunk/ httpd@vm$host.dev.ut1.omniture.com:~/depot/static/trunk 
+fi
+
+if [[ "$var" = "adminModule" || "$var" = "all" ]]; then
+echo syncing adminModule
+rsync -av -e ssh --delete --exclude-from=/Users/curry/bin/list ~/depot/penghuan_curry-macbook-pro/adminModule/trunk/ httpd@vm$host.dev.ut1.omniture.com:~/depot/adminModule/trunk
+fi
+
+if [[ "$var" = "suite" || "$var" = "all" ]]; then
+echo syncing suite
+rsync -av -e ssh --delete --exclude-from=/Users/curry/bin/list ~/depot/penghuan_curry-macbook-pro/suite/trunk/ httpd@vm$host.dev.ut1.omniture.com:~/depot/suite/trunk 
+fi
+
+if [[ "$var" = "l10n" || "$var" = "all" ]]; then
+echo syncing l10n
+rsync -av -e ssh --delete --exclude-from=/Users/curry/bin/list ~/depot/penghuan_curry-macbook-pro/l10n/trunk/ httpd@vm$host.dev.ut1.omniture.com:~/depot/l10n/trunk  
+fi
+
+if [[ "$var" = "dprules" || "$var" = "all" ]]; then
+echo syncing dprules
+rsync -av -e ssh --delete --exclude-from=/Users/curry/bin/list ~/depot/penghuan_curry-macbook-pro/dprules/ httpd@vm$host.dev.ut1.omniture.com:~/depot/dprules/trunk  
+fi
+
+if [[ "$var" = "genesis_script" || "$var" = "all" ]]; then
+echo syncing genesis_script
+rsync -av -e ssh --delete --exclude-from=/Users/curry/bin/list ~/depot/penghuan_curry-macbook-pro/genesis_scripts/ httpd@vm$host.dev.ut1.omniture.com:~/depot/genesis_scripts  
+fi
+
+done
